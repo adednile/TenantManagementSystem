@@ -1,4 +1,4 @@
-package com.tms.TenantManagementSystem.Models;
+/*package com.tms.TenantManagementSystem.Models;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,3 +16,4 @@ public class Main {
     }
 }
 
+*/
