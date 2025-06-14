@@ -1,8 +1,8 @@
-package Models;
+package com.tms.TenantManagementSystem.Models;
 
 public class Main {
     public static void main(String[] args) {
-        Tenant tenant = new Tenant("John Doe", 101, "john@example.com", "pass123");
+        Tenant tenant = new Tenant("John Doe", 101, "john@example.com", "pass123","+254123456789");
         Landlord landlord = new Landlord("Mr. Smith", 201, "smith@example.com", "admin123");
 
         tenant.registerUser();

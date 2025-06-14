@@ -1,11 +1,18 @@
-package Models;
+package com.tms.TenantManagementSystem.Models;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "landlords")
 public class Landlord extends User {
 
     public Landlord(String name, int ID, String email, String password) {
         super(name, ID, email, password);
+    }
+
+    public Landlord() {
+        super("", 0, "", "");
     }
 
     public void trackPayment(Tenant tenant) {

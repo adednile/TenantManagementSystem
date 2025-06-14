@@ -1,15 +1,45 @@
-package Models;
+package com.tms.TenantManagementSystem.Models;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "tenants")
 public class Tenant extends User {
     private List<Payment> payments = new ArrayList<>();
     private List<Ticket> tickets = new ArrayList<>();
+    private String phoneNumber;
 
-    public Tenant(String name, int ID, String email, String password) {
-        super(name, ID, email, password);
+    public Tenant() {
+        super("", 0, "", "");
     }
+    
+    public Tenant(String name, int ID, String email, String password, String phoneNumber) {
+        super(name, ID, email, password);
+        this.phoneNumber = phoneNumber;
+    }
+
+    // Public getter for name
+    public String getName() {
+        return name;
+    }
+
+    // Public setter for name
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Public getter for phoneNumber
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    // Public setter for phoneNumber
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
 
     public void viewPaymentHistory() {
         for (Payment p : payments) {

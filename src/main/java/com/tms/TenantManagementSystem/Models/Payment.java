@@ -1,12 +1,19 @@
-package Models;
+package com.tms.TenantManagementSystem.Models;
 
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "payments")
 public class Payment {
     private static int count = 1;
+    @Id
     private int paymentID;
     private double amount;
     private Date date;
+
+    public Payment() {}
 
     public Payment(double amount) {
         this.paymentID = count++;
