@@ -21,6 +21,10 @@ public class Payment {
         this.date = new Date(); // current date
     }
 
+    public double getAmount() {
+        return amount;
+    }
+
     @Override
     public String toString() {
         return "PaymentID: " + paymentID + ", Amount: " + amount + ", Date: " + date;
