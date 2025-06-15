@@ -5,6 +5,7 @@ export default function MaintenanceRequestForm({ tenantId }) {
   const [form, setForm] = useState({
     description: "",
     urgency: "Normal",
+    category: "",
     image: null,
   });
 
@@ -13,19 +14,18 @@ export default function MaintenanceRequestForm({ tenantId }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    // For demo, just send as JSON (backend does not support file upload)
-    await fetch("http://localhost:8082/api/tickets", {
+    const formData = new FormData();
+    formData.append("description", form.description);
+    formData.append("urgency", form.urgency);
+    formData.append("category", form.category);
+    formData.append("image", form.image);
+
+    await fetch("http://localhost:8082/api/tickets/upload", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        description: form.description,
-        urgency: form.urgency,
-        tenantId,
-        // image: form.image, // Not supported by backend
-      }),
+      body: formData,
     });
     alert("Maintenance request submitted!");
-    setForm({ description: "", urgency: "Normal", image: null });
+    setForm({ description: "", urgency: "Normal", category: "", image: null });
   };
 
   return (
@@ -38,9 +38,14 @@ export default function MaintenanceRequestForm({ tenantId }) {
           <MenuItem value="Normal">Normal</MenuItem>
           <MenuItem value="High">High</MenuItem>
         </TextField>
+        <TextField select label="Category" name="category" fullWidth margin="normal" value={form.category} onChange={handleChange}>
+          <MenuItem value="Plumbing">Plumbing</MenuItem>
+          <MenuItem value="Electrical">Electrical</MenuItem>
+          <MenuItem value="General">General</MenuItem>
+        </TextField>
         <Button variant="contained" component="label" sx={{ mt: 2 }}>
-          Upload Image (not supported)
-          <input type="file" hidden onChange={handleFile} disabled />
+          Upload Image
+          <input type="file" hidden onChange={handleFile} />
         </Button>
         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>Submit</Button>
       </form>

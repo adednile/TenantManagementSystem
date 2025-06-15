@@ -1,6 +1,8 @@
 package com.tms.TenantManagementSystem.Controllers;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,6 +38,10 @@ public class TenantController {
 
     @PostMapping
     public Tenant createTenant(@RequestBody Tenant tenant) {
+        if (!tenant.getEmail().endsWith("@gmail.com")) {
+            throw new IllegalArgumentException("Only Gmail addresses allowed.");
+        }
+        tenant.setRole("tenant");
         return tenantService.createTenant(tenant);
     }
 
@@ -57,5 +63,20 @@ public class TenantController {
     @GetMapping("/{id}/payments")
     public List<Payment> getPayments(@PathVariable int id) {
         return tenantService.getPayments(id);
+    }
+
+    @PutMapping("/{id}/contact")
+    public Tenant updateContact(@PathVariable int id, @RequestBody Map<String, String> contact) {
+        Tenant tenant = tenantService.getTenantById(id);
+        tenant.setPhoneNumber(contact.get("phoneNumber"));
+        // ...other contact fields...
+        return tenantService.createTenant(tenant);
+    }
+
+    @GetMapping("/unpaid")
+    public List<Tenant> getUnpaidTenants() {
+        return tenantService.getAllTenants().stream()
+            .filter(t -> t.getPayments() == null || t.getPayments().isEmpty())
+            .collect(Collectors.toList());
     }
 }

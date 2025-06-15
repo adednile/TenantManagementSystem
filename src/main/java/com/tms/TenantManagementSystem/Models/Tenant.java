@@ -14,22 +14,24 @@ public class Tenant extends User {
     //private String password;
 
     public Tenant() {
-        super("", 0, "", "");
+        super("", 0, "", "", "");
     }
     
     public Tenant(String name, int ID, String email, String password, String phoneNumber) {
-        super(name, ID, email, password);
+        super(name, ID, email, password, phoneNumber);
         this.phoneNumber = phoneNumber;
     }
 
     // Public getter for name
+    @Override
     public String getName() {
-        return name;
+        return super.getName();
     }
 
     // Public setter for name
+    @Override
     public void setName(String name) {
-        this.name = name;
+        super.setName(name);
     }
 
     // Public getter for phoneNumber
@@ -42,20 +44,23 @@ public class Tenant extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    @Override
     public String getEmail() {
-        return email;
+        return super.getEmail();
     }
 
+    @Override
     public void setEmail(String email) {
-        this.email = email;
+        super.setEmail(email);
     }
 
+    @Override
     public String getPassword() {
-        return password;
+        return super.getPassword();
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        super.setPassword(password);
     }
 
     public void viewPaymentHistory() {

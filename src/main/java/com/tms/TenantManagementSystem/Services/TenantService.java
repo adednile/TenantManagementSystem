@@ -1,12 +1,14 @@
 package com.tms.TenantManagementSystem.Services;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.tms.TenantManagementSystem.Models.Payment;
 import com.tms.TenantManagementSystem.Models.Tenant;
 import com.tms.TenantManagementSystem.Repositories.TenantRepository;
-
-import java.util.*;
 
 @Service
 public class TenantService {
@@ -27,7 +29,7 @@ public class TenantService {
     }
 
     public Tenant updateTenant(int id, Tenant tenant) {
-        tenant.ID = id;
+        tenant.setId(id); // Use setter, not direct field access
         return tenantRepository.save(tenant);
     }
 

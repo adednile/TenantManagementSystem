@@ -12,41 +12,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tms.TenantManagementSystem.Models.Landlord;
-import com.tms.TenantManagementSystem.Services.LandlordService;
+import com.tms.TenantManagementSystem.Models.Agent;
+import com.tms.TenantManagementSystem.Services.AgentService;
 
 @RestController
-@RequestMapping("/api/landlords")
-public class LandlordController {
-
+@RequestMapping("/api/agents")
+public class AgentController {
     @Autowired
-    private LandlordService landlordService;
+    private AgentService agentService;
 
     @GetMapping
-    public List<Landlord> getAllLandlords() {
-        return landlordService.getAllLandlords();
+    public List<Agent> getAllAgents() {
+        return agentService.getAllAgents();
     }
 
     @GetMapping("/{id}")
-    public Landlord getLandlordById(@PathVariable int id) {
-        return landlordService.getLandlordById(id);
+    public Agent getAgentById(@PathVariable int id) {
+        return agentService.getAgentById(id);
     }
 
     @PostMapping
-    public Landlord createLandlord(@RequestBody Landlord landlord) {
-        if (!landlord.getEmail().endsWith("@gmail.com")) {
+    public Agent createAgent(@RequestBody Agent agent) {
+        if (!agent.getEmail().endsWith("@gmail.com")) {
             throw new IllegalArgumentException("Only Gmail addresses allowed.");
         }
-        return landlordService.createLandlord(landlord);
+        agent.setRole("agent");
+        return agentService.createAgent(agent);
     }
 
     @PutMapping("/{id}")
-    public Landlord updateLandlord(@PathVariable int id, @RequestBody Landlord landlord) {
-        return landlordService.updateLandlord(id, landlord);
+    public Agent updateAgent(@PathVariable int id, @RequestBody Agent agent) {
+        return agentService.updateAgent(id, agent);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteLandlord(@PathVariable int id) {
-        landlordService.deleteLandlord(id);
+    public void deleteAgent(@PathVariable int id) {
+        agentService.deleteAgent(id);
     }
 }

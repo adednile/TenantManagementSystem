@@ -11,20 +11,21 @@ public class Landlord extends User {
     //private String password;
 
     public Landlord(String name, int ID, String email, String password) {
-        super(name, ID, email, password);
+        super(name, ID, email, password, "landlord");
     }
 
     public Landlord() {
-        super("", 0, "", "");
+        super();
+        setRole("landlord");
     }
 
     public void trackPayment(Tenant tenant) {
-        System.out.println("Tracking payments for Tenant ID: " + tenant.ID);
+        System.out.println("Tracking payments for Tenant ID: " + tenant.getId());
         tenant.viewPaymentHistory();
     }
 
     public void registerUsers(User user) {
-        System.out.println("Registering a new user: " + user.name);
+        System.out.println("Registering a new user: " + user.getName());
     }
 
     public void viewTickets(List<Ticket> tickets) {
@@ -39,20 +40,24 @@ public class Landlord extends User {
         return super.login(email, password);
     }
 
+    @Override
+    public String getName() {
+        return super.getName();
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
+
+    @Override
     public String getEmail() {
-        return email;
+        return super.getEmail();
     }
 
+    @Override
     public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        super.setEmail(email);
     }
 }
 

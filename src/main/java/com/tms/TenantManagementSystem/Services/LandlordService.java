@@ -1,11 +1,12 @@
 package com.tms.TenantManagementSystem.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.tms.TenantManagementSystem.Models.Landlord;
 import com.tms.TenantManagementSystem.Repositories.LandlordRepository;
-
-import java.util.List;
 
 @Service
 public class LandlordService {
@@ -26,7 +27,7 @@ public class LandlordService {
     }
 
     public Landlord updateLandlord(int id, Landlord landlord) {
-        landlord.ID = id;
+        landlord.setId(id); // Use setter, not direct field access
         return landlordRepository.save(landlord);
     }
 
