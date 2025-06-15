@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tms.TenantManagementSystem.Models.Lease;
+import com.tms.TenantManagementSystem.Models.Payment;
+import com.tms.TenantManagementSystem.Models.Tenant;
+import com.tms.TenantManagementSystem.Repositories.LeaseRepository;
+import com.tms.TenantManagementSystem.Repositories.PaymentRepository;
+import com.tms.TenantManagementSystem.Repositories.TenantRepository;
 import com.tms.TenantManagementSystem.Services.LeaseService;
 
 @RestController
@@ -22,6 +27,15 @@ public class LeaseController {
 
     @Autowired
     private LeaseService leaseService;
+
+    @Autowired
+    private LeaseRepository leaseRepository;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
+
+    @Autowired
+    private TenantRepository tenantRepository;
 
     @GetMapping
     public List<Lease> getAllLeases() {
@@ -60,19 +74,37 @@ public class LeaseController {
 
     @PostMapping("/screen")
     public String screenTenant(@RequestBody Map<String, String> data) {
-        // Implement screening logic (e.g., check credit score, etc.)
-        return "Screening result: Approved";
+        // Example: Approve if ID number is even, reject if odd
+        int idNum = Integer.parseInt(data.get("idNumber"));
+        if (idNum % 2 == 0) {
+            return "Screening result: Approved";
+        } else {
+            return "Screening result: Rejected";
+        }
     }
 
     @GetMapping("/analytics/leases")
     public Map<String, Object> leaseAnalytics() {
-        // Return stats, e.g., total leases, active leases, etc.
-        return Map.of("totalLeases", 0, "activeLeases", 0);
+        long totalLeases = leaseRepository.count();
+        long activeLeases = leaseRepository.findAll().stream()
+            .filter(l -> "Active".equalsIgnoreCase(l.getStatus()))
+            .count();
+        return Map.of(
+            "totalLeases", totalLeases,
+            "activeLeases", activeLeases
+        );
     }
 
     @GetMapping("/analytics/payments")
     public Map<String, Object> paymentAnalytics() {
-        // Return stats, e.g., total rent collected, unpaid tenants, etc.
-        return Map.of("totalRentCollected", 0, "unpaidTenants", 0);
+        List<Payment> payments = paymentRepository.findAll();
+        double totalRentCollected = payments.stream().mapToDouble(p -> p.getAmount()).sum();
+        long unpaidTenants = tenantRepository.findAll().stream()
+            .filter(t -> t.getPayments() == null || t.getPayments().isEmpty())
+            .count();
+        return Map.of(
+            "totalRentCollected", totalRentCollected,
+            "unpaidTenants", unpaidTenants
+        );
     }
 }

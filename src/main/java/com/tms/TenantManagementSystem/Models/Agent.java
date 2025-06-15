@@ -1,5 +1,8 @@
 package com.tms.TenantManagementSystem.Models;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "agents")    
 public class Agent extends User {
     private String phoneNumber;
 

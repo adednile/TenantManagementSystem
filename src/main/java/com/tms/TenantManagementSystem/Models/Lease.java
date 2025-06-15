@@ -16,6 +16,7 @@ public class Lease {
     private double rentAmount;
     private boolean isActive;
     private boolean renewed;
+    private String status;
 
     public Lease() {}
 
@@ -93,5 +94,13 @@ public class Lease {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
