@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from "../../auth/AuthContext";
 import { Paper, Typography, TextField } from "@mui/material";
 
 export default function TenantProfile() {

@@ -32,5 +32,22 @@ public class User {
     public void registerUser() {
         System.out.println("Registering user: " + name);
     }
+
+    // Add getters and setters if not present
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
 

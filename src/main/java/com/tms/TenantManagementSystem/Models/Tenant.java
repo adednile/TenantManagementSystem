@@ -10,6 +10,8 @@ public class Tenant extends User {
     private List<Payment> payments = new ArrayList<>();
     private List<Ticket> tickets = new ArrayList<>();
     private String phoneNumber;
+    //private String email;
+    //private String password;
 
     public Tenant() {
         super("", 0, "", "");
@@ -40,6 +42,21 @@ public class Tenant extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public void viewPaymentHistory() {
         for (Payment p : payments) {
